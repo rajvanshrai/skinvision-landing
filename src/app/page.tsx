@@ -1,5 +1,5 @@
 import { Mail, Github, Linkedin } from "lucide-react";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 //  import hero-face from './hero-face.jpg';
 
 
