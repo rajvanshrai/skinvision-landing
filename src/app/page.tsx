@@ -1,33 +1,30 @@
 'use client';
-import { Mail, Github, Linkedin } from "lucide-react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import type { Variants, Transition } from "framer-motion";
 
-const fadeUpVariants: Variants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.4, 0, 0.2, 1],
-    } as Transition,
-  },
-};
-
-const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.6 },
-  },
-};
+import { Mail, Github, Linkedin } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
+import Image from 'next/image';
 
 export default function SkinVision() {
+  const fadeUpVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    }),
+  };
+
+  const fadeIn: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.6 } },
+  };
+
   return (
     <main className="bg-[#FFEFF0] text-gray-900">
-      {/* Hero Section */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -50,13 +47,7 @@ export default function SkinVision() {
           </div>
 
           <div className="relative w-full md:w-1/2 flex justify-center">
-            <Image
-              src="/hero-face.jpg"
-              alt="Face"
-              width={400}
-              height={400}
-              className="rounded-xl object-cover w-full max-w-[400px]"
-            />
+            <Image src="/hero-face.jpg" alt="Hero face" width={400} height={400} className="rounded-xl object-cover w-full max-w-[400px]" />
             <div className="absolute top-4 right-4 bg-[#00000030] backdrop-blur-sm p-4 rounded-xl text-white shadow-lg">
               <h4 className="font-bold mb-2">Dehydrated Skin</h4>
               <ul className="text-sm space-y-1">
@@ -69,7 +60,6 @@ export default function SkinVision() {
         </div>
       </motion.section>
 
-      {/* How It Works */}
       <section className="px-4 py-16 text-center">
         <div className="max-w-[900px] mx-auto">
           <h2 className="text-2xl font-semibold mb-4">How It Works</h2>
@@ -78,19 +68,11 @@ export default function SkinVision() {
             {["Upload Photo", "AI Scan Begins", "Get Tips"].map((title, i) => (
               <motion.div
                 key={title}
+                custom={i}
                 initial="hidden"
                 whileInView="visible"
+                variants={fadeUpVariants}
                 viewport={{ once: true }}
-                variants={{
-                  hidden: fadeUpVariants.hidden,
-                  visible: {
-                    ...fadeUpVariants.visible,
-                    transition: {
-                      ...fadeUpVariants.visible.transition!,
-                      delay: i * 0.2,
-                    } as Transition,
-                  },
-                }}
                 className="aspect-square w-full md:w-1/3 max-w-[260px] border rounded-xl bg-white shadow p-6 flex flex-col items-center justify-center"
               >
                 <div className="text-3xl mb-2">{["⬆️", "✨", "📝"][i]}</div>
@@ -108,7 +90,6 @@ export default function SkinVision() {
         </div>
       </section>
 
-      {/* Skin Concern Input */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -134,50 +115,33 @@ export default function SkinVision() {
         </div>
       </motion.section>
 
-      {/* Testimonials */}
       <section className="px-6 py-12 text-center space-y-8">
         <h2 className="text-2xl font-semibold">What Users Are Saying</h2>
         <div className="flex gap-8 items-center justify-start overflow-x-auto pb-4">
           {[1, 2, 3, 4, 5].map((id, i) => (
             <motion.div
               key={id}
+              custom={i}
               initial="hidden"
               whileInView="visible"
+              variants={fadeUpVariants}
               viewport={{ once: true }}
-              variants={{
-                hidden: fadeUpVariants.hidden,
-                visible: {
-                  ...fadeUpVariants.visible,
-                  transition: {
-                    ...fadeUpVariants.visible.transition!,
-                    delay: i * 0.2,
-                  } as Transition,
-                },
-              }}
               className="aspect-square w-full md:w-1/3 max-w-[260px] min-w-[220px] border rounded-xl bg-white shadow p-6 flex flex-col items-center justify-center"
             >
               <div className="flex items-center gap-2 mb-2">
-                <Image
-                  src={`/user${id}.jpg`}
-                  alt={`User ${id}`}
-                  width={40}
-                  height={40}
-                  className="w-10 h-10 rounded-full"
-                />
+                <Image src={`/user${id}.jpg`} alt={`User ${id}`} width={40} height={40} className="w-10 h-10 rounded-full" />
                 <div>
-                  <p className="font-semibold">
-                    {["Rajvansh R.", "Lauren D.", "Michael B.", "Sophia L.", "Daniel K."][i]}
-                  </p>
+                  <p className="font-semibold">{["Rajvansh R.", "Lauren D.", "Michael B.", "Sophia L.", "Daniel K."][i]}</p>
                   <span className="text-sm text-gray-500">Verified user</span>
                 </div>
               </div>
               <p className="text-sm text-gray-700 italic">
                 {[
-                  "“The SkinVision scan was so accurate– it found issue my dermatologist missed.”",
-                  "“Incredible! It can analyze my skin and give product names in seconds.”",
-                  "“Very helpful! Found early signs of skin issues I wouldn’t have noticed.”",
-                  "“Quick and easy! The product recommendations saved me so much time.”",
-                  "“I never expected such accuracy. Highly recommend this tool.”",
+                  "The SkinVision scan was so accurate– it found issue my dermatologist missed.",
+                  "Incredible! It can analyze my skin and give product names in seconds.",
+                  "Very helpful! Found early signs of skin issues I wouldn’t have noticed.",
+                  "Quick and easy! The product recommendations saved me so much time.",
+                  "I never expected such accuracy. Highly recommend this tool."
                 ][i]}
               </p>
             </motion.div>
@@ -185,7 +149,6 @@ export default function SkinVision() {
         </div>
       </section>
 
-      {/* CTA */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -202,7 +165,6 @@ export default function SkinVision() {
         </motion.button>
       </motion.section>
 
-      {/* FAQ */}
       <section className="px-6 py-12 space-y-4 text-center">
         <h2 className="text-2xl font-semibold">FAQs</h2>
         <div className="space-y-4 max-w-2xl mx-auto">
@@ -223,25 +185,14 @@ export default function SkinVision() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="flex items-center justify-center gap-6 py-8">
         <a href="mailto:rajvansh.raii@gmail.com" aria-label="Email">
           <Mail className="hover:text-[#E35E54] transition-colors duration-200" />
         </a>
-        <a
-          href="https://github.com/rajvanshrai"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-        >
+        <a href="https://github.com/rajvanshrai" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <Github className="hover:text-[#E35E54] transition-colors duration-200" />
         </a>
-        <a
-          href="https://linkedin.com/in/rajvansh-rai-sharma-b66325258"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn"
-        >
+        <a href="https://linkedin.com/in/rajvansh-rai-sharma-b66325258" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <Linkedin className="hover:text-[#E35E54] transition-colors duration-200" />
         </a>
       </footer>
