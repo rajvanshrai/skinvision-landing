@@ -143,6 +143,54 @@ export default function SkinVision() {
           Suggested: Niacinamide (AM), Tretinoin (PM)
         </div>
       </motion.section>
+{/* Testimonials */}
+<section className="px-6 py-12 text-center space-y-8">
+  <h2 className="text-2xl font-semibold">What Users Are Saying</h2>
+  <div className="flex gap-8 items-center justify-start overflow-x-auto pb-4">
+    {[1, 2, 3, 4, 5].map((id, i) => (
+      <motion.div
+        key={id}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: fadeUpVariants.hidden,
+          visible: {
+            ...fadeUpVariants.visible!,
+            transition: {
+              ...(fadeUpVariants.visible!.transition as any),
+              delay: i * 0.2,
+            },
+          },
+        }}
+        className="aspect-square w-full md:w-1/3 max-w-[260px] min-w-[220px] border rounded-xl bg-white shadow p-6 flex flex-col items-center justify-center"
+      >
+        <div className="flex items-center gap-2 mb-2">
+          <img
+            src={`/user${id}.jpg`}
+            alt={`User ${id}`}
+            className="w-10 h-10 rounded-full"
+          />
+          <div>
+            <p className="font-semibold">
+              {["Rajvansh R.", "Lauren D.", "Michael B.", "Sophia L.", "Daniel K."][i]}
+            </p>
+            <span className="text-sm text-gray-500">Verified user</span>
+          </div>
+        </div>
+        <p className="text-sm text-gray-700 italic">
+          {[
+            "“The SkinVision scan was so accurate– it found issue my dermatologist missed.”",
+            "“Incredible! It can analyze my skin and give product names in seconds.”",
+            "“Very helpful! Found early signs of skin issues I wouldn’t have noticed.”",
+            "“Quick and easy! The product recommendations saved me so much time.”",
+            "“I never expected such accuracy. Highly recommend this tool.”",
+          ][i]}
+        </p>
+      </motion.div>
+    ))}
+  </div>
+</section>
 
       {/* Footer */}
       <footer className="flex items-center justify-center gap-6 py-8">
