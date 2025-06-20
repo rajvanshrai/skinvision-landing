@@ -199,12 +199,18 @@ export default function SkinVision() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="flex items-center justify-center gap-6 py-8">
-        <Mail />
-        <Github />
-        <Linkedin />
-      </footer>
+    <footer className="flex items-center justify-center gap-6 py-8">
+  <a href="mailto:rajvansh.raii@gmail.com" aria-label="Email">
+    <Mail className="hover:text-[#E35E54] transition-colors duration-200" />
+  </a>
+  <a href="https://github.com/rajvanshrai" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+    <Github className="hover:text-[#E35E54] transition-colors duration-200" />
+  </a>
+  <a href="https://linkedin.com/in/rajvansh-rai-sharma-b66325258" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+    <Linkedin className="hover:text-[#E35E54] transition-colors duration-200" />
+  </a>
+</footer>
+
     </main>
   );
 }
