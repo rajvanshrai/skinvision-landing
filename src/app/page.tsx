@@ -1,34 +1,27 @@
 'use client';
 import { Mail, Github, Linkedin } from "lucide-react";
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useRef } from "react";
-import { useInView } from "framer-motion";
+import { motion } from "framer-motion";
+import Image from "next/image";
+
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  })
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6 } }
+};
 
 export default function SkinVision() {
-  const fadeUpVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (i = 0) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.2,
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    })
-  };
-
-  const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.6 } }
-  };
-
-  const useSectionInView = () => {
-    const ref = useRef(null);
-    const inView = useInView(ref, { once: true });
-    return [ref, inView] as const;
-  };
-
   return (
     <main className="bg-[#FFEFF0] text-gray-900">
       {/* Hero Section */}
@@ -56,7 +49,13 @@ export default function SkinVision() {
 
           {/* Right */}
           <div className="relative w-full md:w-1/2 flex justify-center">
-            <img src="/hero-face.jpg" className="rounded-xl object-cover w-full max-w-[400px]" />
+            <Image
+              src="/hero-face.jpg"
+              alt="Example skin scan result"
+              width={400}
+              height={400}
+              className="rounded-xl object-cover w-full max-w-[400px]"
+            />
             <div className="absolute top-4 right-4 bg-[#00000030] backdrop-blur-sm p-4 rounded-xl text-white shadow-lg">
               <h4 className="font-bold mb-2">Dehydrated Skin</h4>
               <ul className="text-sm space-y-1">
@@ -141,7 +140,13 @@ export default function SkinVision() {
               className="aspect-square w-full md:w-1/3 max-w-[260px] min-w-[220px] border rounded-xl bg-white shadow p-6 flex flex-col items-center justify-center"
             >
               <div className="flex items-center gap-2 mb-2">
-                <img src={`/user${id}.jpg`} className="w-10 h-10 rounded-full" alt={`User ${id}`} />
+                <Image
+                  src={`/user${id}.jpg`}
+                  alt={`User ${id}`}
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 rounded-full"
+                />
                 <div>
                   <p className="font-semibold">{["Rajvansh R.", "Lauren D.", "Michael B.", "Sophia L.", "Daniel K."][i]}</p>
                   <span className="text-sm text-gray-500">Verified user</span>
@@ -199,18 +204,28 @@ export default function SkinVision() {
         </div>
       </section>
 
-    <footer className="flex items-center justify-center gap-6 py-8">
-  <a href="mailto:rajvansh.raii@gmail.com" aria-label="Email">
-    <Mail className="hover:text-[#E35E54] transition-colors duration-200" />
-  </a>
-  <a href="https://github.com/rajvanshrai" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-    <Github className="hover:text-[#E35E54] transition-colors duration-200" />
-  </a>
-  <a href="https://linkedin.com/in/rajvansh-rai-sharma-b66325258" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-    <Linkedin className="hover:text-[#E35E54] transition-colors duration-200" />
-  </a>
-</footer>
-
+      {/* Footer */}
+      <footer className="flex items-center justify-center gap-6 py-8">
+        <a href="mailto:rajvansh.raii@gmail.com" aria-label="Email">
+          <Mail className="hover:text-[#E35E54] transition-colors duration-200" />
+        </a>
+        <a
+          href="https://github.com/rajvanshrai"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <Github className="hover:text-[#E35E54] transition-colors duration-200" />
+        </a>
+        <a
+          href="https://linkedin.com/in/rajvansh-rai-sharma-b66325258"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <Linkedin className="hover:text-[#E35E54] transition-colors duration-200" />
+        </a>
+      </footer>
     </main>
   );
 }
